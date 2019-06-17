@@ -1,14 +1,14 @@
-## robo_advisor.py
+#robo_advisor.py
 
 import requests
 import json
 
-def to_usd(my_price)
- return "${0:,.2f}".format(my_price)
+def to_usd(my_price):
+    return "${0:,.2f}".format(my_price)
 
 request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&outputsize=full&apikey=demo"
 
-response = request.get(request_url)
+response = requests.get(request_url)
 #print(type(response)) #><class 'requests.models.Response'>
 #print(response.status_code) #> 200
 #print(response.text) #>
@@ -32,7 +32,7 @@ print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")
-print(f"LATEST CLOSE: {to_usd9float(lastest_close))}")
+print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print("RECENT HIGH: $101,000.00")
 print("RECENT LOW: $99,000.00")
 print("-------------------------")
