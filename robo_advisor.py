@@ -9,7 +9,7 @@ import requests
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&outputsize=full&apikey=demo"
+request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol=MSFT&interval=5min&outputsize=compact&apikey=ALPHAVANTAGE_API_KEY"
 
 response = requests.get(request_url)
 #print(type(response)) #><class 'requests.models.Response'>
@@ -27,11 +27,11 @@ dates = list(tsd.keys()) # TODO: Assumes first day is on top.  Sort to ensure la
 
 latest_day = dates[0] #"2019-02-20"
 
-latest_close = tsd[latest day]["4. close"] #> 1,000.00
+latest_close = tsd[latest_day]["4. close"] #> 1,000.00
 
 
 high_prices = []
-low_prices[]
+low_prices = []
 
 
 for date in dates:
@@ -41,7 +41,7 @@ for date in dates:
     low_prices.append(float(low_price))
 
 recent_high = max(high_prices) #max of all high prices
-recent_low = min(low_prices)
+recent_low = min(low_prices) # TODO: Confirm low price
     
     
 
@@ -68,12 +68,12 @@ print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
 
+csv_file_path = "data/prices.csv" # a relative filepath
 
-csv_file_path = "XX.csv"
-
-with open(csv_file_path, "w") as csv_file
-    writer = csv.DictWriter(csv_file, fieldnames=[" "], [" "])
-    writer.writeheader()
-    writer.writerow
-
-
+with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
+    writer = csv.DictWriter(csv_file, fieldnames=["city", "name"])
+    writer.writeheader() # uses fieldnames set above
+    writer.writerow({"city": "New York", "name": "Yankees"})
+    writer.writerow({"city": "New York", "name": "Mets"})
+    writer.writerow({"city": "Boston", "name": "Red Sox"})
+    writer.writerow({"city": "New Haven", "name": "Ravens"})
