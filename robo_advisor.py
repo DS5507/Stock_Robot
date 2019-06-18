@@ -17,7 +17,14 @@ response = requests.get(request_url)
 parsed_response = json.loads(response.text) #> type=dict
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
-latest_close = parsed_response["Time Series (Daily)"]["2019-02-20"]["4. close"] #> $1,000.00
+
+tsd = parsed_response["Time Series (Daily)"]
+
+dates = list(tsd.keys()) # TODO: Assumes first day is on top.  Sort to ensure latest day is first
+
+latest_day = dates[0] #"2019-02-20"
+
+latest_close = tsd[latest day]["4. close"] #> 1,000.00
 
 
 
