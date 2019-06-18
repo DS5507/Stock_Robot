@@ -1,7 +1,10 @@
 #robo_advisor.py
 
-import requests
+import csv
 import json
+
+import requests
+
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -60,5 +63,17 @@ print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
+print("WRITING DATA TO CSV...")
+print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+
+csv_file_path = "XX.csv"
+
+with open(csv_file_path, "w") as csv_file
+    writer = csv.DictWriter(csv_file, fieldnames=[" "], [" "])
+    writer.writeheader()
+    writer.writerow
+
+
