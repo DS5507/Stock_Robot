@@ -102,12 +102,12 @@ print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-breakpoint()
-if int(latest_day["4. close"]) <= 1.2*int(recent_low):
+if float(latest_close) <= 1.2*float(recent_low):
     print("RECOMMENDATION: BUY!")
+    print("RECOMMENDATION REASON: THE LATEST CLOSE IS WITHIN 20% OF THE RECENT LOW")
 else:
-    print("Don't Buy")
-print("RECOMMENDATION REASON: TODO")
+    print("RECOMMENDATION: DON'T BUY")
+    print("RECOMMENDATION REASON: THE LATEST CLOSE IS NOT WITHIN 20% OF THE RECENT LOW")
 print("-------------------------")
 print(f"WRITING DATA TO CSV: {csv_file_path}")
 print("-------------------------")
