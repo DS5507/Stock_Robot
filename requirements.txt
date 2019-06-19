@@ -1,2 +1,4 @@
-python-csv
+
 requests
+python-dotenv
+python-csv
