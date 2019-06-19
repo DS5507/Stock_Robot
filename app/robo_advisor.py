@@ -27,13 +27,25 @@ while True:
         print("Finding Stock Information...")
         break
 
+
+
 ALPHAVANTAGE_API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY")
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol={symbol}&apikey={ALPHAVANTAGE_API_KEY}"
 response = requests.get(request_url)
 parsed_response = json.loads(response.text) #> type=dict
 
 
+try:
+   parsed_response['Time Series (Daily)']
+except:
+   print('Oh no, something is wrong. Can we start over?')
+   print('Shutting program down...')
+   exit()
+
+
 ## TODO: Figure out API Validation
+
+
 
 #print(type(response)) #><class 'requests.models.Response'>
 #print(response.status_code) #> 200
