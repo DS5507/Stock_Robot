@@ -20,30 +20,15 @@ localtime = '{0:%Y-%m-%d %I:%M %p}'.format(datetime.datetime.now())
 
 while True:
     symbol = input(str("Please select a stock symbol: ")).upper()
-    while len(symbol) >= 6:
-        print("Stock symbols should be 5 characters or less")
-        break
+    ALPHAVANTAGE_API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY")
+    request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol={symbol}&apikey={ALPHAVANTAGE_API_KEY}"
+    response = requests.get(request_url)
+    parsed_response = json.loads(response.text) #> type=dict
+    if 'Error' in response.text:
+        print("Cannot find stock symbol.  Please pick a valid stock symbol.")
     else:
         print("Finding Stock Information...")
         break
-
-
-
-ALPHAVANTAGE_API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY")
-request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol={symbol}&apikey={ALPHAVANTAGE_API_KEY}"
-response = requests.get(request_url)
-parsed_response = json.loads(response.text) #> type=dict
-
-
-try:
-   parsed_response['Time Series (Daily)']
-except:
-   print('Oh no, something is wrong. Can we start over?')
-   print('Shutting program down...')
-   exit()
-
-
-## TODO: Figure out API Validation
 
 
 
