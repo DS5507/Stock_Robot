@@ -4,8 +4,11 @@ import csv
 import json
 import os
 
+
 from dotenv import load_dotenv
 import requests
+import datetime
+
 
 load_dotenv()
 
@@ -13,17 +16,30 @@ load_dotenv()
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
-symbol = "MSFT" # TODO: Create Input
+localtime = '{0:%Y-%m-%d %I:%M %p}'.format(datetime.datetime.now())
+
+while True:
+    symbol = input(str("Please select a stock symbol: ")).upper()
+    while len(symbol) >= 6:
+        print("Stock symbols should be 5 characters or less")
+        break
+    else:
+        print("Finding Stock Information...")
+        break
+
 ALPHAVANTAGE_API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY")
 request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol={symbol}&apikey={ALPHAVANTAGE_API_KEY}"
-
 response = requests.get(request_url)
+parsed_response = json.loads(response.text) #> type=dict
+
+
+## TODO: Figure out API Validation
+
 #print(type(response)) #><class 'requests.models.Response'>
 #print(response.status_code) #> 200
 #print(response.text) #>
- 
-  
-parsed_response = json.loads(response.text) #> type=dict
+
+
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
@@ -55,7 +71,7 @@ recent_low = min(low_prices) # TODO: Confirm low price
 # Info Outputs
 #
 
-csv_file_path = os.path.join(os.path.dirname(__file__), "data", "prices.csv")
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
 csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 
@@ -76,17 +92,21 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
 
 
 print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
+print(f"SELECTED SYMBOL: {symbol}")
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: 2018-02-20 02:00pm")
+print(f"REQUEST AT: {localtime}")
 print("-------------------------")
 print(f"LATEST DAY: {last_refreshed}")
 print(f"LATEST CLOSE: {to_usd(float(latest_close))}")
 print(f"RECENT HIGH: {to_usd(float(recent_high))}")
 print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+breakpoint()
+if int(latest_day["4. close"]) <= 1.2*int(recent_low):
+    print("RECOMMENDATION: BUY!")
+else:
+    print("Don't Buy")
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print(f"WRITING DATA TO CSV: {csv_file_path}")
