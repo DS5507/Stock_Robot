@@ -37,14 +37,15 @@ while True:
 #print(response.text) #>
 
 
-
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 
 tsd = parsed_response["Time Series (Daily)"]
 
-dates = list(tsd.keys()) # TODO: Assumes first day is on top.  Sort to ensure latest day is first
+dates = list(tsd.keys()) 
 
-latest_day = dates[0] #"2019-02-20"
+sorted_dates = sorted(dates, reverse=True)
+
+latest_day = sorted_dates[0] #"2019-02-20"
 
 latest_close = tsd[latest_day]["4. close"] #> 1,000.00
 
@@ -111,3 +112,4 @@ print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
 
+breakpoint()
