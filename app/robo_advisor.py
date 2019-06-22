@@ -1,4 +1,4 @@
-#robo_advisor.py
+#app/robo_advisor.py
 
 import csv
 import json
@@ -19,12 +19,12 @@ def to_usd(my_price):
 localtime = '{0:%Y-%m-%d %I:%M %p}'.format(datetime.datetime.now())
 
 while True:
-    symbol = input(str("Please select a stock symbol: ")).upper()
+    symbol = input("Please select a stock symbol: ").upper()
     ALPHAVANTAGE_API_KEY = os.environ.get("ALPHAVANTAGE_API_KEY")
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_Daily&symbol={symbol}&apikey={ALPHAVANTAGE_API_KEY}"
     response = requests.get(request_url)
     parsed_response = json.loads(response.text) #> type=dict
-    if 'Error' in response.text:
+    if 'Error Message' in response.text:
         print("Cannot find stock symbol.  Please pick a valid stock symbol.")
     else:
         print("Finding Stock Information...")
@@ -111,5 +111,3 @@ print(f"WRITING DATA TO CSV: {csv_file_path}")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
-
-breakpoint()
