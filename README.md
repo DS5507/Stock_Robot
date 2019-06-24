@@ -22,6 +22,12 @@ From within the virtual environment, install the required packages specified in 
 pip install -r requirements.txt
 ```
 
+# App Credentials
+Create a file named ".env".  Insert the code below into the file and replace "demo" with your own API key.
+
+```sh
+ALPHAVANTAGE_API_KEY="demo"
+```
 
 # Run the app
 Run the app.
