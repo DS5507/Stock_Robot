@@ -2,7 +2,7 @@
 
 # ignore secret environment variable values in the ".env" file:
 .env
-
+*.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
